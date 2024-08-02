@@ -1,22 +1,19 @@
-mount_base = 30;
-mount_thickness = 10;
-mount_height = 20;
+mount_base = 35;
+mount_thickness = 25;
+mount_height = 35;
 
 slit_thickness = 2;
-slit_depth = 5;
+slit_depth = 11;
 
-monitor_thickness = 5;
-interface_depth = 3;
+monitor_thickness = 18;
+interface_depth = 7;
 interface_offset = 2;
 
-slope_base = 2;
-monitor_slope_angle = 45;
-
-cutout_width = 2;
-cutout_height = 1;
+cutout_width = 4;
+cutout_height = 7;
 
 groove_height = interface_depth;
-slope_angle = 60;
+slope_angle = 67.2;
 groove_base =  groove_height / tan(slope_angle);
 groove_slope = sqrt(groove_height^2 + groove_base^2);
 
@@ -26,7 +23,8 @@ difference() {
     cube([mount_base, mount_thickness, mount_height]);
 
     color("green")
-    translate([0, mount_thickness / 2 - slit_thickness / 2, mount_height - slit_depth])
+    // mount_thickness / 2 - slit_thickness / 2
+    translate([0, cutout_width, mount_height - slit_depth])
         cube([mount_base, slit_thickness, slit_depth]);
     
     color("red")
@@ -37,8 +35,11 @@ difference() {
     
     color("purple")
     translate([0, 0, mount_height - cutout_height])
-        cube([mount_base + 2, mount_thickness / 2 - slit_thickness / 2, cutout_height]);
+        // mount_thickness / 2 - slit_thickness / 2
+        cube([mount_base + 2, cutout_width, cutout_height]);
     
+    translate([2, mount_thickness * .45, mount_height * .52])
+        cube([mount_base - 4, mount_thickness * .4, mount_height * .4]);
 }
 
 module pyramid() {
